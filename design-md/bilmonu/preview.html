@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>BilMönü — Design Preview</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bilkent-navy: #002D62;
+    --bilkent-navy-deep: #001B3D;
+    --paprika: #C8451C;
+    --paprika-soft: #F4B89E;
+    --sage: #6B8E6F;
+    --sage-soft: #D6E4D5;
+    --amber: #E8A33D;
+    --crimson: #B02E26;
+    --cream-0: #FBF7F0;
+    --cream-1: #F5EFE4;
+    --cream-2: #EBE3D3;
+    --ink-900: #1A1A1A;
+    --ink-700: #3D3D3D;
+    --ink-500: #707070;
+    --ink-300: #B8B8B8;
+    --hairline: #E5DCC8;
+    --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans: "Inter", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--cream-0);
+    color: var(--ink-900);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    padding: 56px 24px 96px;
+  }
+  .wrap { max-width: 1160px; margin: 0 auto; }
+
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; margin: 0; letter-spacing: -0.01em; }
+  h1 { font-size: 56px; line-height: 1.05; letter-spacing: -0.02em; }
+  h2 { font-size: 28px; margin: 56px 0 20px; }
+  h3 { font-size: 22px; }
+  p.lede { font-size: 17px; color: var(--ink-700); max-width: 640px; margin: 16px 0 0; }
+  .label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-500);
+  }
+  .mono { font-family: var(--mono); }
+
+  /* Header */
+  .hero {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .chip-today {
+    background: var(--paprika);
+    color: #fff;
+    box-shadow: 0 0 0 3px rgba(200,69,28,.15);
+  }
+  .chip-meal { background: var(--bilkent-navy); color: var(--cream-0); }
+  .chip-spicy { background: var(--paprika-soft); color: var(--paprika); }
+  .chip-veg { background: var(--sage-soft); color: var(--sage); }
+  .chip-allergen { background: #FFF4E1; color: var(--amber); }
+
+  /* Color swatches */
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  .swatch {
+    background: var(--cream-1);
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .swatch .block { height: 88px; }
+  .swatch .meta { padding: 14px 16px; }
+  .swatch .name { font-weight: 600; font-size: 14px; color: var(--ink-900); }
+  .swatch .hex { font-family: var(--mono); font-size: 12px; color: var(--ink-500); margin-top: 4px; }
+
+  /* Typography scale */
+  .type-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--hairline);
+    align-items: baseline;
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-row .meta { font-size: 12px; color: var(--ink-500); font-family: var(--mono); }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 22px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 180ms ease-out;
+  }
+  .btn-primary { background: var(--bilkent-navy); color: var(--cream-0); }
+  .btn-primary:hover { background: var(--bilkent-navy-deep); transform: translateY(-1px); }
+  .btn-accent { background: var(--paprika); color: #fff; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--bilkent-navy);
+    border: 1.5px solid var(--bilkent-navy);
+    padding: 12.5px 20.5px;
+  }
+  .btn-secondary:hover { background: var(--cream-1); }
+  .btn-ghost { background: transparent; color: var(--ink-700); padding: 10px 16px; border-radius: 10px; }
+  .btn-ghost:hover { background: var(--cream-2); }
+  .btn-sage { background: var(--sage); color: #fff; border-radius: 999px; padding: 10px 18px; }
+
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* Meal cards */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .meal-card {
+    background: var(--cream-1);
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 220ms ease;
+    box-shadow: 0 1px 2px rgba(26,26,26,.04), 0 1px 0 rgba(26,26,26,.02);
+  }
+  .meal-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px -8px rgba(26,26,26,.12), 0 2px 4px rgba(26,26,26,.04);
+  }
+  .meal-photo {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(135deg, #D4A574 0%, #8B5A2B 60%, #4A2F1A 100%);
+    position: relative;
+  }
+  .meal-photo.photo-2 { background: linear-gradient(135deg, #E8C872 0%, #C89B3C 50%, #7A5C1C 100%); }
+  .meal-photo.photo-3 { background: linear-gradient(135deg, #A8C09A 0%, #6B8E6F 60%, #3D5A44 100%); }
+  .meal-photo .heart {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,.92);
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    color: var(--paprika);
+  }
+  .meal-photo .heart.filled { background: var(--paprika); color: #fff; }
+  .meal-body { padding: 18px 20px 20px; }
+  .meal-chips { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+  .meal-name {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--ink-900);
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  .meal-desc {
+    font-size: 14px;
+    color: var(--ink-500);
+    margin: 6px 0 16px;
+  }
+  .meal-divider {
+    height: 1px;
+    background: var(--hairline);
+    margin: 0 0 16px;
+  }
+  .meal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .meal-stats {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-700);
+  }
+  .meal-stats .dot { color: var(--ink-300); margin: 0 6px; }
+
+  /* Eaten state */
+  .meal-card.eaten { background: color-mix(in srgb, var(--sage-soft) 60%, var(--cream-1)); }
+  .meal-card.eaten .meal-name {
+    color: var(--ink-500);
+    text-decoration: line-through;
+    text-decoration-color: var(--ink-300);
+    text-decoration-thickness: 1.5px;
+  }
+
+  /* Streak stat */
+  .stat-card {
+    background: var(--cream-1);
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    max-width: 260px;
+  }
+  .stat-card .flame {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    color: var(--paprika);
+    font-size: 20px;
+  }
+  .stat-card .number {
+    font-family: var(--mono);
+    font-size: 48px;
+    font-weight: 500;
+    color: var(--bilkent-navy);
+    line-height: 1;
+  }
+  .stat-card .label { display: block; margin-top: 10px; }
+
+  /* Footer */
+  footer {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--hairline);
+    color: var(--ink-500);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>BilMönü</h1>
+    <span class="chip chip-today">BUGÜN · 10 Nisan</span>
+  </div>
+  <p class="lede">Bilkent yemekhanesinde çıkan yemekleri takip et, yediklerini işaretle, favorilerini biriktir. Sıcak, davetkâr, hızlı.</p>
+
+  <!-- COLORS -->
+  <h2>Color Palette</h2>
+  <div class="swatches">
+    <div class="swatch">
+      <div class="block" style="background:#002D62"></div>
+      <div class="meta"><div class="name">Bilkent Navy</div><div class="hex">#002D62</div></div>
+    </div>
+    <div class="swatch">
+      <div class="block" style="background:#C8451C"></div>
+      <div class="meta"><div class="name">Paprika</div><div class="hex">#C8451C</div></div>
+    </div>
+    <div class="swatch">
+      <div class="block" style="background:#F4B89E"></div>
+      <div class="meta"><div class="name">Paprika Soft</div><div class="hex">#F4B89E</div></div>
+    </div>
+    <div class="swatch">
+      <div class="block" style="background:#6B8E6F"></div>
+      <div class="meta"><div class="name">Sage</div><div class="hex">#6B8E6F</div></div>
+    </div>
+    <div class="swatch">
+      <div class="block" style="background:#D6E4D5"></div>
+      <div class="meta"><div class="name">Sage Soft</div><div class="hex">#D6E4D5</div></div>
+    </div>
+    <div class="swatch">
+      <div class="block" style="background:#E8A33D"></div>
+      <div class="meta"><div class="name">Amber</div><div class="hex">#E8A33D</div></div>
+    </div>
+    <div class="swatch">
+      <div class="block" style="background:#FBF7F0;border-bottom:1px solid var(--hairline)"></div>
+      <div class="meta"><div class="name">Cream 0</div><div class="hex">#FBF7F0</div></div>
+    </div>
+    <div class="swatch">
+      <div class="block" style="background:#F5EFE4;border-bottom:1px solid var(--hairline)"></div>
+      <div class="meta"><div class="name">Cream 1</div><div class="hex">#F5EFE4</div></div>
+    </div>
+    <div class="swatch">
+      <div class="block" style="background:#1A1A1A"></div>
+      <div class="meta"><div class="name">Ink 900</div><div class="hex">#1A1A1A</div></div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <h2>Typography</h2>
+  <div class="type-row">
+    <div class="meta">Fraunces · 56 · 500</div>
+    <div style="font-family:var(--serif);font-size:56px;font-weight:500;line-height:1.05;letter-spacing:-.02em">Fırın Tavuk But</div>
+  </div>
+  <div class="type-row">
+    <div class="meta">Fraunces · 28 · 500</div>
+    <div style="font-family:var(--serif);font-size:28px;font-weight:500">Bugün ne yedin?</div>
+  </div>
+  <div class="type-row">
+    <div class="meta">Fraunces · 22 · 500</div>
+    <div style="font-family:var(--serif);font-size:22px;font-weight:500">Mercimek Çorbası</div>
+  </div>
+  <div class="type-row">
+    <div class="meta">Inter · 17 · 400</div>
+    <div style="font-size:17px">Bilkent yemekhanesinde çıkan yemekleri takip et, yediklerini işaretle.</div>
+  </div>
+  <div class="type-row">
+    <div class="meta">Inter · 15 · 400</div>
+    <div style="font-size:15px">Günün öğünlerini hızlıca gözden geçir, favorilerini işaretle.</div>
+  </div>
+  <div class="type-row">
+    <div class="meta">JetBrains Mono · 14 · 500</div>
+    <div class="mono" style="font-size:14px;font-weight:500">420 kcal · ₺45,00 · 10/04/2026</div>
+  </div>
+  <div class="type-row">
+    <div class="meta">Inter · 12 · 600 UPPER</div>
+    <div class="label">GÜNLÜK SERİ</div>
+  </div>
+
+  <!-- CHIPS -->
+  <h2>Chips & Tags</h2>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <span class="chip chip-today">BUGÜN</span>
+    <span class="chip chip-meal">KAHVALTI</span>
+    <span class="chip chip-meal">ÖĞLE</span>
+    <span class="chip chip-meal">AKŞAM</span>
+    <span class="chip chip-spicy">🌶 ACILI</span>
+    <span class="chip chip-veg">🌿 VEJETARYEN</span>
+    <span class="chip chip-allergen">⚠ GLUTEN</span>
+  </div>
+
+  <!-- BUTTONS -->
+  <h2>Buttons</h2>
+  <div class="btn-row">
+    <button class="btn btn-primary">✓ Yedim</button>
+    <button class="btn btn-accent">Favorilere Ekle</button>
+    <button class="btn btn-secondary">Detay</button>
+    <button class="btn btn-ghost">İptal</button>
+    <button class="btn btn-sage">✓ Yedin — geri al</button>
+  </div>
+
+  <!-- MEAL CARDS -->
+  <h2>Meal Cards</h2>
+  <div class="cards">
+
+    <!-- Default -->
+    <article class="meal-card">
+      <div class="meal-photo">
+        <div class="heart">♡</div>
+      </div>
+      <div class="meal-body">
+        <div class="meal-chips">
+          <span class="chip chip-meal">ÖĞLE</span>
+          <span class="chip chip-spicy">🌶 ACILI</span>
+        </div>
+        <h3 class="meal-name">Fırın Tavuk But</h3>
+        <div class="meal-desc">Pilav, közlenmiş biber, yoğurt</div>
+        <div class="meal-divider"></div>
+        <div class="meal-footer">
+          <div class="meal-stats">420 kcal <span class="dot">·</span> ₺45</div>
+          <button class="btn btn-primary" style="padding:10px 16px;font-size:14px">✓ Yedim</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Favorited -->
+    <article class="meal-card">
+      <div class="meal-photo photo-2">
+        <div class="heart filled">♥</div>
+      </div>
+      <div class="meal-body">
+        <div class="meal-chips">
+          <span class="chip chip-meal">ÖĞLE</span>
+          <span class="chip chip-veg">🌿 VEJETARYEN</span>
+        </div>
+        <h3 class="meal-name">Mercimek Çorbası</h3>
+        <div class="meal-desc">Limon, pul biber, yanında ekmek</div>
+        <div class="meal-divider"></div>
+        <div class="meal-footer">
+          <div class="meal-stats">180 kcal <span class="dot">·</span> ₺18</div>
+          <button class="btn btn-primary" style="padding:10px 16px;font-size:14px">✓ Yedim</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Eaten state -->
+    <article class="meal-card eaten">
+      <div class="meal-photo photo-3">
+        <div class="heart">♡</div>
+      </div>
+      <div class="meal-body">
+        <div class="meal-chips">
+          <span class="chip chip-meal">AKŞAM</span>
+          <span class="chip chip-veg">🌿 VEJETARYEN</span>
+        </div>
+        <h3 class="meal-name">Sebzeli Bulgur Pilavı</h3>
+        <div class="meal-desc">Nohut, havuç, maydanoz</div>
+        <div class="meal-divider"></div>
+        <div class="meal-footer">
+          <div class="meal-stats">310 kcal <span class="dot">·</span> ₺32</div>
+          <button class="btn btn-sage" style="padding:9px 14px;font-size:13px">✓ Yedin — geri al</button>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- STATS -->
+  <h2>Streak Card</h2>
+  <div class="stat-card">
+    <span class="flame">🔥</span>
+    <div class="number">12</div>
+    <span class="label">GÜNLÜK SERİ</span>
+  </div>
+
+  <footer>
+    BilMönü Design System · Preview · Fraunces + Inter + JetBrains Mono
+  </footer>
+
+</div>
+</body>
+</html>
