@@ -57,10 +57,23 @@ A meal-tracking app for Bilkent University students to browse the daily cafeteri
 | `--ink-950` | `#0F1218` | App background |
 | `--ink-900d` | `#171B24` | Card surface |
 | `--ink-800d` | `#222832` | Elevated surface, hover |
+| `--ink-700d` | `#2E3642` | Deep elevated (focused input) |
 | `--cream-text` | `#F2ECDE` | Primary text |
 | `--cream-text-2` | `#C9C2B3` | Secondary text |
 | `--cream-text-3` | `#8A8479` | Tertiary text |
+| `--cream-text-4` | `#5A554D` | Disabled / dividers over text |
 | `--hairline-d` | `#2C3340` | 1px borders on dark cards |
+
+### Dark-mode brand adjustments
+On the dark canvas, pure `--bilkent-navy` (`#002D62`) sinks into the background and fails contrast on CTAs. Swap brand roles as follows:
+
+| Token | Hex | Role (dark only) |
+|-------|-----|------------------|
+| `--bilkent-navy-lift` | `#4A7DBF` | Primary buttons, links, focus rings, meal-time chips |
+| `--paprika` | `#C8451C` | Unchanged — still the single loudest accent |
+| `--sage` | `#6B8E6F` | Unchanged — eaten state via a 22% overlay on card bg |
+
+Never use `--bilkent-navy` for text or interactive elements in dark mode. Reserve it for decorative surfaces only.
 
 ---
 
